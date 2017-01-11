@@ -267,6 +267,7 @@
 					},
 					error: function() {
 						alert('Error loading images');
+						btn.removeClass('work__btn-icon--loading');
 					}
 				});
 			}, 800);
