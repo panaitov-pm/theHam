@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="30" viewBox="0 0 160 30">
+  <defs>
+    <style>
+      .cls-1 {
+        font-size: 40px;
+        fill: #fff;
+        font-family: Montserrat;
+      }
+
+      .cls-2 {
+        fill: #18cfab;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <text id="theHam-logo.svg" class="cls-1" x="-1.481" y="29.599">the<tspan class="cls-2">Ham</tspan></text>
+</svg>
