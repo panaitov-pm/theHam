@@ -22,17 +22,23 @@
 			if (elementId.length > 2) {
 				var top = $(elementId).offset().top;
 
-				$body.animate({
-					scrollTop: top
-				}, 1200);	
+				if( $body.is('.js-menu-active') ) {
+					$body.removeClass('js-menu-active')
+				}
+				setTimeout(function() {
+					$body.animate({
+						scrollTop: top
+					}, 1200);
+				}, 600);
 			}
 		});// end click
 
-		
-		$('.head-top menu').on('click', '.menu__link', function(event) {
+		// Show mobile menu
+		$(document).on('click', '.menu-toggle', function(event) {
 			event.preventDefault();
-			/* Act on the event */
-		});
+			
+			$body.toggleClass('js-menu-active');
+		}); // end click
 
 		//Sliders
 		var headSlider = $('.head-slider');
@@ -45,8 +51,8 @@
 			draggable: false,
 			pauseOnHover: false,
 			pauseOnFocus: false,
-			autoplay: true,
-			autoplaySpeed: 1700
+			// autoplay: true,
+			// autoplaySpeed: 1700
 		});
 
 		// Change slider arrow color
@@ -119,7 +125,15 @@
   			slidesToShow: 1,
 			infinite: false,
 			speed: 1200,
-			initialSlide: 3
+			initialSlide: 3,
+			responsive: [
+				{
+					breakpoint: 380,
+				    settings: {
+				        initialSlide: 2,
+				    }
+				}
+			]
 		});
 
 		$('.testimonials-carousel').slick({
@@ -133,7 +147,16 @@
 			infinite: false,
 			speed: 1200,
 			focusOnSelect: true,
-			initialSlide: 3
+			initialSlide: 3,
+			responsive: [
+				{
+					breakpoint: 380,
+				    settings: {
+				        slidesToShow: 3,
+				        initialSlide: 2,
+				    }
+				}
+			]
 		});
 	
 		$('.testimonials-carousel').on('click', '.carousel-arrow', function(event) {
@@ -191,6 +214,26 @@
 					.addClass('js-service-active');
 		}); // end click
 
+		// Show accordion content
+		$(document).on('click', '.service-content__title', function(event) {
+			event.preventDefault();
+			
+			var $this = $(this);
+			var currentContent = $this.next('.service-content__item')
+			var allContent = $this.closest('.service-content')
+									.find('.service-content__item');
+
+			// Close all accordion content 
+			allContent.slideUp();
+
+			// Close, open current accordion content
+			if (currentContent.css('display') != 'block') {
+				currentContent.slideDown();
+			} else {
+				currentContent.slideUp();
+			}
+		}); // end click
+
 		// Set data-from value to tag with increment number
 		$('.facts').find('[data-from]').each(function(index, el) {
 			var $this = $(this);
@@ -204,17 +247,22 @@
 			event.preventDefault();
 			$('.search').slideToggle();
 		});
+
+		//Delete js-service-active class from services tabs block
+		var windowWidth = $(window).width();
+		
+		if( windowWidth < 768) {
+			$('.service-content').find('.js-service-active').removeClass('js-service-active');
+		}
 	}); // end ready
 
 	$(window).load(function() {
 		
 		//Set max content height
 		var aboutTabContent = $('.tabs-content .tab-content');
-
-		setMaxHeight(aboutTabContent);
-
 		var serviceTabContent = $('.service-content .service-content__item');
 
+		setMaxHeight(aboutTabContent);
 		setMaxHeight(serviceTabContent);
 
 		//Work filter
@@ -280,7 +328,7 @@
 	        zoom: 15,
 	        mapTypeId: google.maps.MapTypeId.ROADMAP, //ROADMAP, HYBRID etc
 			disableDefaultUI: true, //disable controls zooms icon
-			scrollwheel: true, // disable map scroll
+			scrollwheel: false, // disable map scroll
 			draggable: true, // disable drag map with mouse
 	    };
 
@@ -356,6 +404,7 @@
 			// Disable scrolling for mobile
 			$body.off('touchmove');
 		}); // end click
+
 	}); // end load
 
 	// Variables for Animate progressbar when block is visible
@@ -452,6 +501,25 @@
 		}
 	}); // end scroll
 
+
+	$(window).resize(function(event) {
+		
+		var windowWidth = $(window).outerWidth();
+		//Delete js-service-active class from services tabs block
+		if( windowWidth < 768) {
+			$('.service-content').find('.js-service-active').removeClass('js-service-active');
+		}
+
+		if( windowWidth > 749 ) {
+			$('.service-content .service-content__item:nth-child(2)')
+					.css('display', "")
+					.addClass('js-service-active');
+		}
+
+		//Close mobile nav menu
+		$body.removeClass('js-menu-active');
+	}); // end resize
+
 	function setMaxHeight(elem) {
 
 		var maxHeight = 0;
@@ -472,23 +540,30 @@
 
 	function setDataTab(menuItem, contentItem) {
 
-		var counter = 1;
-		
-		menuItem.each(function(index, el) {
+		if(menuItem) {
+			var counter = 1;
+			
+			menuItem.each(function(index, el) {
 
-			$(this).attr('data-tab', counter);
+				$(this).attr('data-tab', counter);
 
-			counter++;
-		}); // end each
+				counter++;
+			}); // end each
+		}
 
-		counter = 1; // reset counter value
 
-		contentItem.each(function(index, el) {
 
-			$(this).attr('data-tab', counter);
+		if (contentItem) {
+		    counter = 1; // reset counter value
 
-			counter++;			
-		}); // end each
+			contentItem.each(function(index, el) {
+
+				$(this).attr('data-tab', counter);
+
+				counter++;			
+			}); // end each
+
+		}
 	}
 
 	function disableScrolling(){
