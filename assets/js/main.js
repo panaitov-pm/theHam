@@ -51,8 +51,8 @@
 			draggable: false,
 			pauseOnHover: false,
 			pauseOnFocus: false,
-			// autoplay: true,
-			// autoplaySpeed: 1700
+			autoplay: true,
+			autoplaySpeed: 1700
 		});
 
 		// Change slider arrow color
@@ -254,6 +254,7 @@
 		if( windowWidth < 768) {
 			$('.service-content').find('.js-service-active').removeClass('js-service-active');
 		}
+
 	}); // end ready
 
 	$(window).load(function() {
@@ -404,12 +405,11 @@
 			// Disable scrolling for mobile
 			$body.off('touchmove');
 		}); // end click
-
 	}); // end load
 
 	// Variables for Animate progressbar when block is visible
-	var showAbout = true,
-		showFacts = true;
+	var showAbout = true;
+	var	showFacts = true;
 
 	$(window).scroll(function(event) {
 		
@@ -462,9 +462,9 @@
 
 		//Animate progressbar when block is visible
 		var aboutBlock = $('#about');
-		var	factsBlock = $('.facts');
+		var	factsBlock = $('.facts'); 
 
-		if ( isVisiblePage( aboutBlock ) && showAbout) {
+		if ( isVisiblePage( aboutBlock ) && showAbout ) {
 
 			aboutBlock.find('.tab-content__value').each(function(index, el) {
 				var $this = $(this),
@@ -500,7 +500,6 @@
 			showFacts = false;
 		}
 	}); // end scroll
-
 
 	$(window).resize(function(event) {
 		
