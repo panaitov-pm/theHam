@@ -266,13 +266,12 @@
 
 				widthBar =  $('.tab-content__item').innerWidth();   
 				percent = parseFloat( $this.attr('data-percent') );
-				percent = percent * widthBar / 100;
-				percent = percent.toFixed(1);
+				
 				colorValue = $this.attr('data-color');
 
 				$this.css({	
 					'backgroundColor': colorValue,
-					'width': percent,
+					'width': percent + '%',
 					'opacity': 1	
 				});
 			}); // end each
