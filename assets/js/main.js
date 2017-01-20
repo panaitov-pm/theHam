@@ -86,12 +86,11 @@
 			headSliderPreview.css('backgroundImage', nextImage);
 		}); //end afterChange
 
-
+		// Change slider preview image
 		$(document).on('click', '.slide-arrow__prev', function(event) {
 			event.preventDefault();
 			headSlider.slick('slickPrev');
 
-			// Change slider preview image
 			headSlider.on('afterChange', function(event, slick, currentSlide){
 
 				var currentSlide = headSlider.slick('slickCurrentSlide'); 
@@ -102,11 +101,11 @@
 			}); //end afterChange
 		}); // end click
 
+		// Change slider preview image
 		$(document).on('click', '.slide-arrow__next', function(event) {
 			event.preventDefault();
 			headSlider.slick('slickNext');
 
-			// Change slider preview image
 			headSlider.on('afterChange', function(event, slick, currentSlide){
 				
 				var currentSlide = headSlider.slick('slickCurrentSlide');    	
@@ -255,6 +254,37 @@
 			$('.service-content').find('.js-service-active').removeClass('js-service-active');
 		}
 
+		//Do animate progress bar and numbers for mobile screen
+		if(windowHeight < 590) {
+			console.log(windowHeight);
+
+			aboutBlock.find('.tab-content__value').each(function(index, el) {
+				var $this = $(this),
+				    percent,
+				    colorValue,
+				    widthBar;
+
+				widthBar =  $('.tab-content__item').innerWidth();   
+				percent = parseFloat( $this.attr('data-percent') );
+				percent = percent * widthBar / 100;
+				percent = percent.toFixed(1);
+				colorValue = $this.attr('data-color');
+
+				$this.css({	
+					'backgroundColor': colorValue,
+					'width': percent,
+					'opacity': 1	
+				});
+			}); // end each
+			showAbout = false;
+
+			$('.fact__title').spincrement({
+				thousandSeparator: '',
+				duration: 10,
+			});
+			showFacts = false;
+		}
+
 	}); // end ready
 
 	$(window).load(function() {
@@ -320,7 +350,7 @@
 					}
 				});
 			}, 800);
-		});
+		}); // end click
 
 		//Google map 
 		var $coordinates = {lat: 40.8471069, lng: -74.0767309};
@@ -405,11 +435,14 @@
 			// Disable scrolling for mobile
 			$body.off('touchmove');
 		}); // end click
+
 	}); // end load
 
 	// Variables for Animate progressbar when block is visible
 	var showAbout = true;
 	var	showFacts = true;
+	var aboutBlock = $('#about');
+	var	factsBlock = $('.facts'); 
 
 	$(window).scroll(function(event) {
 		
@@ -419,17 +452,16 @@
 		var	headHeight = headTopBlock.outerHeight();
 			
 		if (scrollPos > (headHeight) ) {
-
 			headTopBlock.addClass('js-head-fixed');
 		
 		} else {
-
 			headTopBlock.removeClass('js-head-fixed');
 	
 		}
 
 		//Hide search field
 		var searchBlock = $('.search');
+
 		if (scrollPos > headHeight &&  searchBlock.css('display') == 'block') {
 			searchBlock.slideUp('fast');
 		}
@@ -454,16 +486,13 @@
 			if (scrollPos + (windowHeight / 3) > idTop && scrollPos + (windowHeight / 3) < idBottom) {
 				$('nav .menu__link--active').removeClass('menu__link--active');
 				$('nav .menu__link[href="'+ id +'"]').addClass('menu__link--active');
+			
 			} else {
 				$('nav .menu__link[href="'+ id +'"]').removeClass('menu__link--active');
 			}
-
-		});
+		}); // end each
 
 		//Animate progressbar when block is visible
-		var aboutBlock = $('#about');
-		var	factsBlock = $('.facts'); 
-
 		if ( isVisiblePage( aboutBlock ) && showAbout ) {
 
 			aboutBlock.find('.tab-content__value').each(function(index, el) {
@@ -504,6 +533,7 @@
 	$(window).resize(function(event) {
 		
 		var windowWidth = $(window).outerWidth();
+		
 		//Delete js-service-active class from services tabs block
 		if( windowWidth < 768) {
 			$('.service-content').find('.js-service-active').removeClass('js-service-active');

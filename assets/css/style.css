@@ -366,6 +366,12 @@ img {
   }
 }
 
+@media screen and (orientation: landscape) and (max-width: 768px) {
+  .head-top {
+    position: absolute;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .head-top {
     padding: 10px 0;
@@ -497,10 +503,6 @@ img {
   transition: top 0.12s 0.3s cubic-bezier(0.33333, 0.66667, 0.66667, 1), -webkit-transform 0.15s cubic-bezier(0.55, 0.055, 0.675, 0.19);
   transition: top 0.12s 0.3s cubic-bezier(0.33333, 0.66667, 0.66667, 1), transform 0.15s cubic-bezier(0.55, 0.055, 0.675, 0.19);
   transition: top 0.12s 0.3s cubic-bezier(0.33333, 0.66667, 0.66667, 1), transform 0.15s cubic-bezier(0.55, 0.055, 0.675, 0.19), -webkit-transform 0.15s cubic-bezier(0.55, 0.055, 0.675, 0.19);
-}
-
-.js-menu-active .menu-toggle--collapse {
-  right: 210;
 }
 
 .js-menu-active .menu-toggle--collapse .menu-toggle__inner {
@@ -1418,6 +1420,12 @@ img {
   .work-menu ul {
     border: 0;
   }
+  .work-menu ul:after {
+    content: '';
+    clear: both;
+    display: table;
+    height: 0;
+  }
 }
 
 .work-menu li {
@@ -1472,7 +1480,6 @@ img {
 @media screen and (max-width: 540px) {
   .work-menu a {
     padding: 5px;
-    font-size: 14px;
   }
 }
 
@@ -3064,6 +3071,7 @@ footer {
 ----------------------------------------- */
 @media screen and (max-width: 380px) {
   div[class^=col-] {
+    float: none;
     width: 100%;
   }
   div.logo-width {

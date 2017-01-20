@@ -172,11 +172,9 @@ img {
 	padding-right: 0;
 }
 
-
 /* -----------------------------------------
  HEADER
 ----------------------------------------- */
-	    
 .head-slider {
 	height: 1012px;
 	background-color: #171717;
@@ -278,6 +276,12 @@ img {
 
 	@include max-width(800px) {
 		padding: 15px 0 5px;
+	}
+
+	@include orient(landscape){
+		@include max-width(sm) {
+			position: absolute;
+		}
 	}
 
 	@include max-width(sm) {
@@ -397,7 +401,7 @@ img {
 		}
 
 		.js-menu-active &{
-			right: 210;
+
 			.menu-toggle__inner {
 				transform: translate3d(0, -10px, 0) rotate(-45deg);
 			    transition-delay: 0.32s;
@@ -1181,6 +1185,13 @@ img {
 
 		@include max-width(xs) {
 			border: 0;
+			
+			&:after {
+				content: '';
+				clear: both;
+				display: table;
+				height: 0;
+			}
 		}
 	}
 
@@ -1231,7 +1242,6 @@ img {
 
 		@include max-width(540px) {
 			padding: 5px;
-			font-size: 14px;
 		}
 		
 		&:hover {
@@ -2719,6 +2729,7 @@ footer {
 ----------------------------------------- */
 @include max-width(380px) {
 	div[class^=col-] {
+		float: none;
 		width: 100%;
 	}
 
